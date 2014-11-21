@@ -1,4 +1,4 @@
-uitests-multipath-control
+uitests-multipath_control
 =========================
 
 uitests to control MultiPath Control
