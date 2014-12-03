@@ -10,16 +10,31 @@ public class LaunchSettings extends UiAutomatorTestCase {
 
 	private static final String ID_MULTIIFACE_BUTTON = "be.uclouvain.multipathcontrol:id/enable_multiiface";
 
-	protected void enable_mptcp(UiObject button)
-			throws UiObjectNotFoundException {
-		if (!button.isChecked())
-			button.click();
+	/**
+	 * Force sysctl cmd to enable/diable mptcp after a pause of 0.5 sec
+	 */
+	protected void sysctlMptcp(boolean enable) {
+		sleep(500);
+		String[] cmds = { "sysctl -w net.mptcp.mptcp_enabled="
+				+ (enable ? "1" : "0") };
+		Utils.runAsRoot(cmds);
 	}
 
-	protected void disable_mptcp(UiObject button)
+	protected void enableMptcp(UiObject button)
+			throws UiObjectNotFoundException {
+		if (button.isChecked()) { // disable: to be sure to reset it
+			button.click();
+			sleep(500);
+		}
+		button.click();
+		sysctlMptcp(true);
+	}
+
+	protected void disableMptcp(UiObject button)
 			throws UiObjectNotFoundException {
 		if (button.isChecked())
 			button.click();
+		sysctlMptcp(false);
 	}
 
 	public void testDemo() throws UiObjectNotFoundException {
@@ -32,9 +47,9 @@ public class LaunchSettings extends UiAutomatorTestCase {
 
 		String action = getParams().getString("action"); // default: enable
 		if (action == null || !action.equals("disable"))
-			enable_mptcp(button);
+			enableMptcp(button);
 		else
-			disable_mptcp(button);
+			disableMptcp(button);
 	}
 }
 
