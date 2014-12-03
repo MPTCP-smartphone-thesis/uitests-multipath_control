@@ -11,6 +11,15 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	private static final String ID_MULTIIFACE_BUTTON = "be.uclouvain.multipathcontrol:id/enable_multiiface";
 
 	/**
+	 * Set the path manager for mptcp
+	 */
+	protected void sysctlMptcpPM(String pathManager) {
+		String[] cmds = { "sysctl -w net.mptcp.mptcp_path_manager="
+				+ pathManager };
+		Utils.runAsRoot(cmds);
+	}
+
+	/**
 	 * Force sysctl cmd to enable/diable mptcp after a pause of 0.5 sec
 	 */
 	protected void sysctlMptcp(boolean enable) {
@@ -28,6 +37,10 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		}
 		button.click();
 		sysctlMptcp(true);
+		String pathManager = getParams().getString("pm"); // default: default
+		if (pathManager == null)
+			pathManager = "default";
+		sysctlMptcpPM(pathManager);
 	}
 
 	protected void disableMptcp(UiObject button)
