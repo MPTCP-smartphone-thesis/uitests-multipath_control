@@ -51,8 +51,8 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	}
 
 	public void testDemo() throws UiObjectNotFoundException {
-		assertTrue("OOOOOpps",
-				Utils.openApp(this, "Multipath Control", "be.uclouvain.multipathcontrol"));
+		assertTrue("OOOOOpps", Utils.openApp(this, "Multipath Control",
+				"be.uclouvain.multipathcontrol", false)); // not kill it before
 		sleep(1000);
 
 		// Get button
