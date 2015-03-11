@@ -56,7 +56,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 						"be.uclouvain.multipathcontrol",
 						"be.uclouvain.multipathcontrol.Main",
 						false)); // not kill it before
-		sleep(1000);
+		sleep(2000);
 
 		// Get button
 		UiObject button = Utils.getObjectWithId(ID_MULTIIFACE_BUTTON);
@@ -68,4 +68,3 @@ public class LaunchSettings extends UiAutomatorTestCase {
 			disableMptcp(button);
 	}
 }
-
