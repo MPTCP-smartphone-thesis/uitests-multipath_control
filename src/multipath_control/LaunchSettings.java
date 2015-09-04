@@ -8,7 +8,7 @@ import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 
 public class LaunchSettings extends UiAutomatorTestCase {
 
-	private static final String ID_MULTIIFACE_BUTTON = "be.uclouvain.multipathcontrol:id/enable_multiiface";
+	private static final String ID_MULTIIFACE_BUTTON = "be.uclouvain.multipathcontrol:id/switch_multiiface";
 
 	/**
 	 * Set the path manager for mptcp
@@ -54,9 +54,9 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		assertTrue("OOOOOpps",
 				Utils.openApp(this, "Multipath Control",
 						"be.uclouvain.multipathcontrol",
-						"be.uclouvain.multipathcontrol.Main",
 						false)); // not kill it before
 		sleep(2000);
+		System.out.println("Coucou");
 
 		// Get button
 		UiObject button = Utils.getObjectWithId(ID_MULTIIFACE_BUTTON);
